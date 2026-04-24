@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #121212;
+}
+
+.calculator {
+    width: 320px;
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* The Display Screen */
+.display {
+    width: 100%;
+    height: 60px;
+    background: #2d2d2d;
+    color: #00ff88;
+    text-align: right;
+    padding: 10px 20px;
+    font-size: 2rem;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* The Grid Layout */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.btn {
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    background: #333;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn:hover { background: #444; }
+
+.btn-op { background: #444; color: #00ff88; }
+.btn-clear { color: #ff5555; }
+
+.btn-equal {
+    background: #00ff88;
+    color: #121212;
+    grid-row: span 2; /* Spans two rows vertically */
+    height: 130px;
+}
+
+.btn-zero {
+    grid-column: span 2; /* Spans two columns horizontally */
+}
+
+.btn:active { transform: scale(0.95); }
