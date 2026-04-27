@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23333333'/><text x='50' y='72' font-family='Arial, sans-serif' font-size='65' font-weight='bold' fill='white' text-anchor='middle'>M</text></svg>"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "on-tertiary-fixed": "#0d1c2e",
+                        "secondary-fixed": "#e0e3e5",
+                        "secondary": "#5c5f61",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#67758b",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#444749",
+                        "background": "#f9f9f9",
+                        "on-background": "#1a1c1c",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "outline-variant": "#c7c4d7",
+                        "primary-fixed": "#e1e0ff",
+                        "on-surface": "#1a1c1c",
+                        "surface-container": "#eeeeee",
+                        "on-surface-variant": "#464554",
+                        "surface-dim": "#dadada",
+                        "secondary-container": "#e0e3e5",
+                        "primary-container": "#6063ee",
+                        "on-secondary-fixed": "#191c1e",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2f3131",
+                        "surface-container-low": "#f3f3f4",
+                        "surface-tint": "#494bd6",
+                        "surface": "#f9f9f9",
+                        "on-tertiary-fixed-variant": "#3a485b",
+                        "inverse-on-surface": "#f0f1f1",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-high": "#e8e8e8",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#d5e3fc",
+                        "outline": "#767586",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#4f5d71",
+                        "inverse-primary": "#c0c1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#c4c7c9",
+                        "surface-variant": "#e2e2e2",
+                        "on-tertiary-container": "#fdfcff",
+                        "surface-bright": "#f9f9f9",
+                        "primary": "#4648d4",
+                        "on-primary-fixed": "#07006c",
+                        "tertiary-fixed-dim": "#b9c7df",
+                        "on-primary-container": "#fffbff",
+                        "on-secondary-container": "#626567"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "max-width": "1280px",
+                        "base": "8px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "gutter": "32px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "h2": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #f9f9f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1a1c1c;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 245, 240, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 218, 185, 0.6);
+        }
+
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4648d4, #6063ee, #c0c1ff);
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s linear;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            box-shadow: 0 8px 32px rgba(70, 72, 212, 0.12) !important;
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
+            width: 92% !important;
+        }
+
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, padding 0.3s ease;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4648d4;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .nav-link.active { color: #4648d4; }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #4648d4, #6063ee, #c0c1ff, #4648d4);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 4s ease infinite;
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        .float-anim { animation: float 4s ease-in-out infinite; }
+
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.05); }
+        }
+        .glow-pulse { animation: glow-pulse 4s ease-in-out infinite; }
+
+        .mesh-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+        .mesh-bg .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: orb-float 8s ease-in-out infinite;
+        }
+        .mesh-bg .orb-1 {
+            width: 300px; height: 300px; background: #c0c1ff;
+            top: -10%; left: -5%; animation-delay: 0s;
+        }
+        .mesh-bg .orb-2 {
+            width: 250px; height: 250px; background: #e1e0ff;
+            top: 20%; right: -5%; animation-delay: -3s;
+        }
+        .mesh-bg .orb-3 {
+            width: 200px; height: 200px; background: #d5e3fc;
+            bottom: 10%; left: 30%; animation-delay: -5s;
+        }
+        @keyframes orb-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(20px, -20px) scale(1.05); }
+            66% { transform: translate(-15px, 15px) scale(0.95); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+            right: -5%;
+            animation-delay: -3s;
+        }
+        .mesh-bg .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: #d5e3fc;
+            bottom: 10%;
+            left: 30%;
+            animation-delay: -5s;
+        }
+        @keyframes orb-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(20px, -20px) scale(1.05); }
+            66% { transform: translate(-15px, 15px) scale(0.95); }
+        }
+
+        /* Entrance animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            filter: blur(5px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+        .reveal-delay-6 { transition-delay: 0.6s; }
+
+        /* Stagger children */
+        .stagger-children .reveal-child {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            filter: blur(5px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .stagger-children.visible .reveal-child {
+            opacity: 1; transform: translateY(0) scale(1); filter: blur(0px);
+        }
+        .stagger-children.visible .reveal-child:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-children.visible .reveal-child:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-children.visible .reveal-child:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-children.visible .reveal-child:nth-child(4) { transition-delay: 0.4s; }
+        .stagger-children.visible .reveal-child:nth-child(5) { transition-delay: 0.5s; }
+        .stagger-children.visible .reveal-child:nth-child(6) { transition-delay: 0.6s; }
+        .stagger-children.visible .reveal-child:nth-child(7) { transition-delay: 0.7s; }
+        .stagger-children.visible .reveal-child:nth-child(8) { transition-delay: 0.8s; }
+
+        /* Hero stagger */
+        .hero-stagger > * {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: hero-fade-in 0.8s ease forwards;
+        }
+        .hero-stagger > *:nth-child(1) { animation-delay: 0.2s; }
+        .hero-stagger > *:nth-child(2) { animation-delay: 0.4s; }
+        .hero-stagger > *:nth-child(3) { animation-delay: 0.6s; }
+        .hero-stagger > *:nth-child(4) { animation-delay: 0.8s; }
+        @keyframes hero-fade-in {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Button magnetic hover glow */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 8px 30px rgba(70, 72, 212, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* Card 3D tilt and lift */
+        .card-3d {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transform-style: preserve-3d;
+        }
+        .card-3d:hover {
+            transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+            box-shadow: 0 20px 40px rgba(70, 72, 212, 0.15);
+        }
+
+        /* Skill card hover */
+        .skill-card {
+            transition: all 0.3s ease;
+        }
+        .skill-card:hover {
+            border-color: #4648d4;
+            background: #f8f8ff;
+            transform: translateY(-4px);
+        }
+        .skill-card:hover .skill-icon {
+            transform: scale(1.2) rotate(-5deg);
+            color: #4648d4;
+        }
+        .skill-icon {
+            transition: all 0.3s ease;
+        }
+
+        /* Experience card border glow */
+        .exp-card {
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .exp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 3px 0 0 3px;
+            transition: box-shadow 0.4s ease;
+        }
+        .exp-card:hover {
+            transform: translateX(6px);
+        }
+        .exp-card.exp-primary::before { background: #4648d4; }
+        .exp-card.exp-tertiary::before { background: #4f5d71; }
+        .exp-card.exp-primary:hover::before {
+            box-shadow: 0 0 20px rgba(70, 72, 212, 0.6);
+        }
+        .exp-card.exp-tertiary:hover::before {
+            box-shadow: 0 0 20px rgba(79, 93, 113, 0.6);
+        }
+
+        /* Project image overlay */
+        .project-img-wrap {
+            overflow: hidden;
+            border-radius: 1.5rem;
+        }
+        .project-img-wrap img {
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-img-wrap:hover img {
+            transform: scale(1.08);
+        }
+        .project-img-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.6), transparent);
+            opacity: 0.6;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Parallax layers */
+        .parallax-slow {
+            will-change: transform;
+        }
+        .parallax-medium {
+            will-change: transform;
+        }
+
+        /* Counter animation */
+        .counter {
+            display: inline-block;
+        }
+
+        /* Education card hover */
+        .edu-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .edu-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(70, 72, 212, 0.12);
+            border-color: rgba(70, 72, 212, 0.2);
+        }
+        .edu-card:hover .edu-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .edu-icon {
+            transition: all 0.4s ease;
+        }
+
+        /* Contact section pulse glow */
+        @keyframes contact-glow {
+            0%, 100% { box-shadow: 0 0 40px rgba(70, 72, 212, 0.2); }
+            50% { box-shadow: 0 0 60px rgba(70, 72, 212, 0.35); }
+        }
+        .contact-glow {
+            animation: contact-glow 3s ease-in-out infinite;
+        }
+
+        /* Footer link hover */
+        .footer-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #4648d4;
+            transition: width 0.3s ease;
+        }
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        /* Scroll indicator */
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translateY(0); opacity: 0.6; }
+            50% { transform: translateY(8px); opacity: 1; }
+        }
+        .scroll-indicator {
+            animation: scroll-bounce 2s ease-in-out infinite;
+        }
+
+        /* Preloader */
+        #preloader {
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+        }
+        #preloader.hide {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader-progress {
+            width: 0%;
+            height: 2px;
+            background: #ffffff;
+            margin-top: 12px;
+            animation: load-progress 1.5s ease-in-out forwards;
+            border-radius: 2px;
+        }
+        @keyframes load-progress {
+            0% { width: 0%; opacity: 0.5; }
+            50% { width: 70%; opacity: 1; }
+            100% { width: 100%; opacity: 1; }
+        /* Text hover animations */
+        .text-gradient-hover {
+            display: inline-block;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .text-gradient-hover:hover {
+            background: linear-gradient(90deg, #4648d4, #6063ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: scale(1.05) translateX(5px);
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<!-- Preloader -->
+<div id="preloader" class="fixed inset-0 z-[10000] bg-[#0a0a0a] flex items-center justify-center">
+    <div class="loader-logo flex flex-col items-center">
+        <span class="text-white font-display text-4xl font-bold tracking-[0.2em] ml-2">MANSI.</span>
+        <div class="loader-progress w-full"></div>
+    </div>
+</div>
+
+<!-- Scroll Progress Bar -->
+<div class="fixed top-0 left-0 w-full z-[9999]">
+    <div id="scroll-progress"></div>
+</div>
+
+<!-- Top Navigation Bar -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-4xl z-50 flex justify-between items-center px-6 py-3 bg-white/80 backdrop-blur-md rounded-full border border-slate-200/50 shadow-lg shadow-indigo-500/5 transition-all duration-300" id="navbar">
+    <a href="#hero" class="text-xl font-bold tracking-tighter text-slate-900 font-display">Mansi Ahire</a>
+    <div class="hidden md:flex items-center gap-8">
+        <a class="nav-link font-label-md text-slate-600 hover:text-indigo-600 transition-colors" href="#about">About</a>
+        <a class="nav-link font-label-md text-slate-600 hover:text-indigo-600 transition-colors" href="#education">Education</a>
+        <a class="nav-link font-label-md text-slate-600 hover:text-indigo-600 transition-colors" href="#skills">Skills</a>
+        <a class="nav-link font-label-md text-slate-600 hover:text-indigo-600 transition-colors" href="#projects">Projects</a>
+        <a class="nav-link font-label-md text-slate-600 hover:text-indigo-600 transition-colors" href="#contact">Contact</a>
+    </div>
+    <button class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-slate-50 hover:bg-slate-100 transition-colors" id="mobile-toggle" aria-label="Toggle menu">
+        <span class="material-symbols-outlined" id="menu-icon">menu</span>
+    </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="fixed top-24 left-1/2 -translate-x-1/2 w-[90%] max-w-sm z-40 bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-100" id="mobile-menu">
+    <div class="flex flex-col p-6 gap-4">
+        <a class="mobile-link font-label-md text-slate-600 hover:text-indigo-600 transition-colors py-2 border-b border-slate-100" href="#about">About</a>
+        <a class="mobile-link font-label-md text-slate-600 hover:text-indigo-600 transition-colors py-2 border-b border-slate-100" href="#education">Education</a>
+        <a class="mobile-link font-label-md text-slate-600 hover:text-indigo-600 transition-colors py-2 border-b border-slate-100" href="#skills">Skills</a>
+        <a class="mobile-link font-label-md text-slate-600 hover:text-indigo-600 transition-colors py-2 border-b border-slate-100" href="#projects">Projects</a>
+        <a class="mobile-link font-label-md text-slate-600 hover:text-indigo-600 transition-colors py-2" href="#contact">Contact</a>
+    </div>
+</div>
+
+<main class="pt-32">
+
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-gutter mb-xl flex flex-col md:flex-row items-center gap-lg relative" id="hero">
+    <div class="mesh-bg">
+        <div class="orb orb-1 parallax-slow"></div>
+        <div class="orb orb-2 parallax-medium"></div>
+        <div class="orb orb-3 parallax-slow"></div>
+    </div>
+    <div class="flex-1 text-center md:text-left hero-stagger relative z-10">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-md mb-6">Available for Opportunities</span>
+        <h1 class="font-display text-display text-on-surface mb-6">Crafting Digital <br/><span class="gradient-text">Experiences</span> with Precision.</h1>
+        <p class="font-body-lg text-on-surface-variant max-w-xl mb-8">Hello, I'm Mansi Dnyaneshwar Ahire. A passionate developer and problem solver focused on building functional and beautiful digital products.</p>
+        <div class="flex flex-wrap justify-center md:justify-start gap-4">
+            <a href="Mansi Updated CV.pdf" download class="btn-primary px-8 py-4 bg-primary text-on-primary rounded-xl font-label-md active:scale-95 inline-flex items-center gap-2">
+                <span class="material-symbols-outlined">download</span> Download CV
+            </a>
+            <a href="#projects" class="px-8 py-4 bg-secondary-container text-on-secondary-container rounded-xl font-label-md hover:bg-surface-container-high transition-all active:scale-95 inline-flex items-center gap-2">
+                <span class="material-symbols-outlined">folder_open</span> View Projects
+            </a>
+        </div>
+    </div>
+    <div class="flex-1 flex justify-center relative z-10">
+    <div class="relative w-64 h-64 md:w-96 md:h-96 float-anim">
+        <div class="absolute inset-0 bg-primary-fixed rounded-full blur-3xl glow-pulse"></div>
+        <div class="relative w-full h-full rounded-full border-4 border-white shadow-2xl overflow-hidden">
+            <img class="w-full h-full object-cover"
+                 alt="Professional studio portrait of Mansi Ahire"
+                 src="Mansi.jpeg"/>
+        </div>
+    </div>
+</div>
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 scroll-indicator hidden md:block">
+        <span class="material-symbols-outlined text-slate-400 text-2xl">keyboard_arrow_down</span>
+    </div>
+</section>
+
+<!-- Stats Bento Grid / About -->
+<section class="max-w-7xl mx-auto px-gutter mb-xl" id="about">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-2 glass-card p-8 rounded-3xl flex flex-col justify-between card-3d reveal">
+            <div>
+                <h2 class="font-h2 text-on-surface mb-4 text-gradient-hover cursor-default">About Me</h2>
+                <p class="font-body-md text-on-surface-variant leading-relaxed">
+                    I am a B.Sc. Computer Science student aiming to launch my career in the tech field. I aspire to apply my classroom knowledge to real-world projects and enhance my coding skills. Eager to join a collaborative team where I can learn and contribute to meaningful projects.
+                </p>
+            </div>
+            <div class="flex gap-12 mt-8">
+                <div class="reveal reveal-delay-1">
+                    <span class="block font-display text-h1 text-primary counter" data-target="3">0</span>
+                    <span class="font-label-sm text-on-surface-variant uppercase tracking-widest">Projects<br>Completed</span>
+                </div>
+                <div class="reveal reveal-delay-2">
+                    <span class="block font-display text-h1 text-primary counter" data-target="3">0</span>
+                    <span class="font-label-sm text-on-surface-variant uppercase tracking-widest">Awards &<br>Certifications</span>
+                </div>
+            </div>
+        </div>
+        <div class="glass-card p-8 rounded-3xl flex flex-col justify-center items-center text-center card-3d reveal reveal-delay-3 parallax-slow">
+            <span class="material-symbols-outlined text-5xl text-primary mb-4">lightbulb</span>
+            <h3 class="font-h3 text-on-surface mb-2">Core Vision</h3>
+            <p class="font-body-md text-on-surface-variant">To design software that empowers users, bridging the gap between complex logic and seamless experience.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Education Section -->
+<section class="max-w-7xl mx-auto px-gutter mb-xl pt-16" id="education">
+    <div class="text-center mb-12 reveal">
+        <h2 class="font-h2 text-on-surface mb-2 text-gradient-hover cursor-default">Education Journey</h2>
+        <p class="font-body-md text-on-surface-variant">My academic background and qualifications</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-children">
+        <!-- Degree -->
+        <div class="edu-card glass-card p-8 rounded-3xl border border-slate-200 reveal-child">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center shrink-0 edu-icon">
+                    <span class="material-symbols-outlined text-primary">school</span>
+                </div>
+                <div>
+                    <h3 class="font-h3 text-on-surface">B.Sc. Computer Sciences</h3>
+                    <p class="text-primary font-label-md mb-2">Graduating in 2025</p>
+                    <p class="font-body-md text-on-surface-variant">Current CGPA: 7.66</p>
+                </div>
+            </div>
+        </div>
+        <!-- HSC -->
+        <div class="edu-card glass-card p-8 rounded-3xl border border-slate-200 reveal-child">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0 edu-icon">
+                    <span class="material-symbols-outlined text-secondary">history_edu</span>
+                </div>
+                <div>
+                    <h3 class="font-h3 text-on-surface">Higher Secondary Education</h3>
+                    <p class="text-secondary font-label-md mb-2">Maharashtra State Board, Pune (2022)</p>
+                    <p class="font-body-md text-on-surface-variant">Passed with 69.33% (First Class)</p>
+                </div>
+            </div>
+        </div>
+        <!-- SSC -->
+        <div class="edu-card glass-card p-8 rounded-3xl border border-slate-200 reveal-child md:col-span-2">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center shrink-0 edu-icon">
+                    <span class="material-symbols-outlined text-tertiary">menu_book</span>
+                </div>
+                <div>
+                    <h3 class="font-h3 text-on-surface">Secondary School Education</h3>
+                    <p class="text-tertiary font-label-md mb-2">Maharashtra State Board, Pune (2020)</p>
+                    <p class="font-body-md text-on-surface-variant">Passed with 87.20% (Distinction)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="max-w-7xl mx-auto px-gutter mb-xl pt-16" id="skills">
+    <div class="text-center mb-12 reveal">
+        <h2 class="font-h2 text-on-surface mb-2 text-gradient-hover cursor-default">Technical Arsenal</h2>
+        <p class="font-body-md text-on-surface-variant">Tools and technologies I use to build things</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 stagger-children">
+        <!-- Skill 1 -->
+        <div class="skill-card bg-[#FFF5F0] p-6 rounded-2xl border border-[#FFE4D6] flex flex-col items-center justify-center gap-3 text-center reveal-child">
+            <span class="material-symbols-outlined text-4xl text-slate-400 skill-icon">terminal</span>
+            <span class="font-label-md text-on-surface">C Language</span>
+        </div>
+        <!-- Skill 2 -->
+        <div class="skill-card bg-[#FFF5F0] p-6 rounded-2xl border border-[#FFE4D6] flex flex-col items-center justify-center gap-3 text-center reveal-child">
+            <span class="material-symbols-outlined text-4xl text-slate-400 skill-icon">code</span>
+            <span class="font-label-md text-on-surface">Java & Python</span>
+        </div>
+        <!-- Skill 3 -->
+        <div class="skill-card bg-[#FFF5F0] p-6 rounded-2xl border border-[#FFE4D6] flex flex-col items-center justify-center gap-3 text-center reveal-child">
+            <span class="material-symbols-outlined text-4xl text-slate-400 skill-icon">html</span>
+            <span class="font-label-md text-on-surface">HTML/CSS</span>
+        </div>
+        <!-- Skill 4 -->
+        <div class="skill-card bg-[#FFF5F0] p-6 rounded-2xl border border-[#FFE4D6] flex flex-col items-center justify-center gap-3 text-center reveal-child">
+            <span class="material-symbols-outlined text-4xl text-slate-400 skill-icon">javascript</span>
+            <span class="font-label-md text-on-surface">JavaScript & PHP</span>
+        </div>
+        <!-- Skill 5 -->
+        <div class="skill-card bg-[#FFF5F0] p-6 rounded-2xl border border-[#FFE4D6] flex flex-col items-center justify-center gap-3 text-center reveal-child">
+            <span class="material-symbols-outlined text-4xl text-slate-400 skill-icon">database</span>
+            <span class="font-label-md text-on-surface">DBMS / MySQL</span>
+        </div>
+        <!-- Skill 6 -->
+        <div class="skill-card bg-[#FFF5F0] p-6 rounded-2xl border border-[#FFE4D6] flex flex-col items-center justify-center gap-3 text-center reveal-child">
+            <span class="material-symbols-outlined text-4xl text-slate-400 skill-icon">apps</span>
+            <span class="font-label-md text-on-surface">MS Office</span>
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section class="max-w-7xl mx-auto px-gutter mb-xl pt-16" id="experience">
+    <div class="text-center mb-12 reveal">
+        <h2 class="font-h2 text-on-surface mb-2 text-gradient-hover cursor-default">Experiences & Involvement</h2>
+        <p class="font-body-md text-on-surface-variant">Activities that shaped my professional growth</p>
+    </div>
+    <div class="max-w-3xl mx-auto space-y-6 stagger-children">
+        <div class="exp-card exp-primary bg-[#FFF5F0] p-8 rounded-2xl shadow-sm border border-[#FFE4D6] reveal-child">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                <h3 class="font-h3 text-on-surface">National Service Scheme (NSS)</h3>
+                <span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed text-sm rounded-full font-label-sm mt-2 md:mt-0">Selected Member</span>
+            </div>
+            <p class="font-body-md text-on-surface-variant">Completed Avhan 2023 State level disaster management training camp at Gondvana University, Gadchiroli. Completed a State level residential camp related to agriculture and entrepreneurship at Pimpalgaon Baswant & worked as a volunteer in National Youth Festival held in Nashik.</p>
+        </div>
+        
+        <div class="exp-card exp-tertiary bg-[#FFF5F0] p-8 rounded-2xl shadow-sm border border-[#FFE4D6] reveal-child">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                <h3 class="font-h3 text-on-surface">Bureau of Indian Standards (BIS) Club</h3>
+                <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed text-sm rounded-full font-label-sm mt-2 md:mt-0">Member</span>
+            </div>
+            <p class="font-body-md text-on-surface-variant">Engaged college student and BIS Club member, passionately driving awareness through impactful initiatives and club activities.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section class="max-w-7xl mx-auto px-gutter mb-xl pt-16" id="projects">
+    <div class="text-center mb-12 reveal">
+        <h2 class="font-h2 text-on-surface mb-2 text-gradient-hover cursor-default">Selected Works</h2>
+        <p class="font-body-md text-on-surface-variant">Recent projects showcasing my technical capabilities</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-children">
+        <!-- Project 1 -->
+        <div class="bg-[#FFF5F0] rounded-3xl p-6 shadow-sm border border-[#FFE4D6] flex flex-col card-3d reveal-child">
+            <div class="project-img-wrap relative w-full h-64 mb-6 bg-slate-100 flex items-center justify-center">
+                <span class="material-symbols-outlined text-6xl text-slate-300">storefront</span>
+                <!-- Replace with actual image -->
+                <!-- <img src="assets/project1.jpg" alt="TradeHub Platform" class="w-full h-full object-cover"/> -->
+            </div>
+            <div class="flex-1">
+                <div class="flex gap-2 mb-4">
+                    <span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full font-label-sm">HTML/CSS</span>
+                    <span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full font-label-sm">PHP</span>
+                    <span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full font-label-sm">MySQL</span>
+                </div>
+                <h3 class="font-h3 text-on-surface mb-2">TradeHub</h3>
+                <p class="font-body-md text-on-surface-variant mb-6">A web-based collaborative platform connecting traders with clients. Features user authentication, portfolio uploads, direct messaging, and project proposals.</p>
+            </div>
+            <a href="#" class="inline-flex items-center gap-2 text-primary font-label-md hover:underline">View Source <span class="material-symbols-outlined text-sm">arrow_outward</span></a>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex flex-col card-3d reveal-child">
+            <div class="project-img-wrap relative w-full h-64 mb-6 bg-slate-100 flex items-center justify-center">
+                <span class="material-symbols-outlined text-6xl text-slate-300">web</span>
+                <!-- Replace with actual image -->
+                <!-- <img src="assets/project2.jpg" alt="Project 2" class="w-full h-full object-cover"/> -->
+            </div>
+            <div class="flex-1">
+                <div class="flex gap-2 mb-4">
+                    <span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full font-label-sm">HTML</span>
+                    <span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full font-label-sm">CSS</span>
+                    <span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full font-label-sm">JS</span>
+                </div>
+                <h3 class="font-h3 text-on-surface mb-2">Interactive Portfolio</h3>
+                <p class="font-body-md text-on-surface-variant mb-6">A responsive personal portfolio website designed with modern UI principles, showcasing my projects, skills, and resume with smooth animations.</p>
+            </div>
+            <a href="#" class="inline-flex items-center gap-2 text-primary font-label-md hover:underline">View Live <span class="material-symbols-outlined text-sm">arrow_outward</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="max-w-4xl mx-auto px-gutter mb-xl pt-16 relative" id="contact">
+    <div class="absolute inset-0 bg-primary-fixed rounded-[3rem] blur-3xl opacity-30 contact-glow -z-10"></div>
+    <div class="glass-card p-10 md:p-16 rounded-[3rem] text-center border-slate-200 reveal">
+        <h2 class="font-display text-4xl md:text-5xl text-on-surface mb-6">Let's build something <span class="text-primary">great together</span></h2>
+        <p class="font-body-lg text-on-surface-variant mb-10 max-w-2xl mx-auto">I'm currently looking for new opportunities and my inbox is always open. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="mailto:mansi@example.com" class="btn-primary px-8 py-4 bg-primary text-on-primary rounded-xl font-label-md active:scale-95 inline-flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined">mail</span> Say Hello
+            </a>
+            <a href="https://linkedin.com/in/mansi-ahire" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-white text-on-surface border border-slate-200 rounded-xl font-label-md hover:bg-slate-50 transition-all active:scale-95 inline-flex items-center justify-center gap-2">
+                LinkedIn <span class="material-symbols-outlined">arrow_outward</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-[#0a0a0a] pt-12 pb-8 mt-24 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="text-center md:text-left">
+            <p class="font-display text-xl font-bold text-white mb-2">Mansi Ahire</p>
+            <p class="font-body-md text-slate-400">© 2024 Mansi Ahire. All rights reserved.</p>
+        </div>
+        <div class="flex gap-6 items-center">
+            <a href="https://github.com" target="_blank" class="footer-link text-slate-300 hover:text-white font-label-md flex items-center gap-2 transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                GitHub
+            </a>
+            <a href="https://linkedin.com/in/mansi-ahire" target="_blank" class="footer-link text-slate-300 hover:text-white font-label-md flex items-center gap-2 transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                LinkedIn
+            </a>
+            <a href="mailto:mansi@example.com" class="footer-link text-slate-300 hover:text-white font-label-md flex items-center gap-2 transition-colors">
+                <span class="material-symbols-outlined text-[1.25rem]">mail</span>
+                Email
+            </a>
+        </div>
+    </div>
+</footer>
+
+<!-- Interactions Script -->
+<script>
+    // --- Smooth Scrolling with Lenis ---
+    const lenis = new Lenis({
+        autoRaf: true,
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+    });
+
+    // --- Preloader ---
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const preloader = document.getElementById('preloader');
+            if(preloader) {
+                preloader.classList.add('hide');
+                setTimeout(() => { preloader.style.display = 'none'; }, 800);
+            }
+        }, 1600); // Wait for the progress bar animation
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- 1. Mobile Menu Toggle ---
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            if (mobileMenu.classList.contains('open')) {
+                menuIcon.textContent = 'close';
+            } else {
+                menuIcon.textContent = 'menu';
+            }
+        });
+
+        // Close menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                menuIcon.textContent = 'menu';
+            });
+        });
+
+        // --- 2. Scroll Progress Bar & Navbar Glassmorphism ---
+        const progressBar = document.getElementById('scroll-progress');
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            // Progress Bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+
+            // Navbar
+            if (winScroll > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // --- 3. Scroll Spy (Active Link Highlighting) ---
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // --- 4. Intersection Observer for Entrance Animations ---
+        const revealElements = document.querySelectorAll('.reveal, .stagger-children');
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // If it has counters, trigger them
+                    const counters = entry.target.querySelectorAll('.counter');
+                    if (counters.length > 0) {
+                        counters.forEach(counter => {
+                            const target = +counter.getAttribute('data-target');
+                            const duration = 2000; // ms
+                            const increment = target / (duration / 16); // 60fps
+                            let current = 0;
+                            
+                            const updateCounter = () => {
+                                current += increment;
+                                if (current < target) {
+                                    counter.innerText = Math.ceil(current);
+                                    requestAnimationFrame(updateCounter);
+                                } else {
+                                    counter.innerText = target + '+';
+                                }
+                            };
+                            updateCounter();
+                        });
+                        // Remove counter class so it doesn't trigger again
+                        counters.forEach(c => c.classList.remove('counter'));
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // --- 5. Parallax Scroll Effects ---
+        const parallaxSlow = document.querySelectorAll('.parallax-slow');
+        const parallaxMedium = document.querySelectorAll('.parallax-medium');
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            
+            parallaxSlow.forEach(el => {
+                const speed = 0.1;
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+            
+            parallaxMedium.forEach(el => {
+                const speed = 0.2;
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
